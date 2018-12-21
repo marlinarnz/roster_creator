@@ -1,11 +1,13 @@
 class Constants:
     ''' The constants class contains all necessary constant numbers, dictionary keys and suchlike'''
 
-    CATS = ["Werkstatt Rent", "Werkstatt Sport", "Trübsee", "Saisonnier m Rent",
-            "Saisonnier w Rent", "Saisonnier m Sport", "Saisonnier w Sport",
-            "Chef", "Rent", "Sport", "Azubi Rent", "Azubi Sport", "Sonstiges"]
+    PARAMS = "params.json"
+    # Keys for the params.json file
+    JOBS = "jobs"
+    UT = "utility"
 
 class Errors:
     ''' This class contains error messages '''
 
-    WRONG_CAT = "Falsche Kategorie"
+    WRONG_INPUT = "An instance of the Input class is needed for instanciation of the creator"
+    WRONG_OUTPUT = "An instance of the Output class is needed for instanciation of the creator"
