@@ -1,0 +1,22 @@
+{
+    "jobs": {
+        "Werkstatt Rent": 2,
+        "Werkstatt Sport": 1,
+        "Saisonnier m Rent": 2,
+        "Saisonnier w Rent": 2,
+        "Saisonnier m Sport": 1,
+        "Saisonnier w Sport": 3,
+        "Büro Rent": 0,
+        "Büro Sport": 1,
+        "Trübsee": 1,
+        "Chef": 0,
+        "Azubi Schule": 0,
+        "Sonstiges": 0
+    },
+    "utility": {
+        "off_in_row": 50,
+        "off_prio1": 30,
+        "off_prio2": 20,
+        "off_prio1": 10
+    }
+}
