@@ -10,7 +10,7 @@ class InputReader:
     """ This class contains all methods necessary to read all information into the staff roster"""
 
     def __init__(self):
-        self.__params = json.load(open(c.JSON))
+        self.__params = json.load(open(c.PARAMS))
  
     def get_demand_dict(self, year, month, curtail=True):
         ''' This method returns the demand for staff in the given month
@@ -23,9 +23,14 @@ class InputReader:
         :return demand_dict: dict with days and their need for staff roles'''
 
         staff_need_dict = self.__get_calendar_dict(year, month, curtail)
-        for job in self.__params[c.JOBS]:
-            for day, val in staff_need_dict.items():
-                val[job] = self.__params[job]
+
+        # Attribute default staff demand from params
+        for job, demand in self.__params[c.JOBS].items():
+            for day, day_dict in staff_need_dict.items():
+                day_dict[job] = self.__params[demand]
+
+        # Alter the staff demand
+        
         return staff_need_dict
  
     def get_staff_dict(self, year, month):
