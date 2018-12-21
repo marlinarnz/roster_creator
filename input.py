@@ -1,3 +1,4 @@
+
 import datetime
 import calendar
 import json
@@ -39,6 +40,9 @@ class InputReader:
                                  c.WISHES: [{datetime.date(2019, 1, 2): c.PRIO3}]}
                      }
         return staff_dict
+
+    def get_params_dict(self):
+        return self.__params
 
     def __get_calendar_dict(self, year, month, curtail=True):
         ''' This method uses the calendar package to iterate over
