@@ -23,6 +23,10 @@ class Constants:
     PRIO1 = "day off priority 1"
     PRIO2 = "day off priority 2"
     PRIO3 = "day off priority 3"
+    # Mapping of Prios and utilities
+    PRIO_MAP = {PRIO1: UT_OFF_PRIO1,
+                PRIO2: UT_OFF_PRIO2,
+                PRIO3: UT_OFF_PRIO3}
 
     # Keys for the settings dict
     START = "start date"

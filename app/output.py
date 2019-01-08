@@ -33,8 +33,9 @@ class OutputFactory(Output):
 	''' Factory class which calls the wanted outputs'''
 
 	def _create(self, result, settings):
-		excel = OutputExcel()
-		excel.generate(result, settings)
+		if settings[c.EXCEL_OUT]:
+			excel = OutputExcel()
+			excel.generate(result, settings)
 
 
 class OutputExcel(Output):

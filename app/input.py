@@ -28,16 +28,17 @@ class InputMonthly(Input):
         :param curtail: bool whether to cut off all weekdays from
         the calendar that do not belong to the given month
         (optional, default true)
-        :return demand_dict: dict with days and their need for staff roles'''
+        :return dict with days and their need for staff roles'''
 
         calendar_dict = self.__get_calendar_dict(year, month, curtail)
 
         # Attribute default staff demand from params
         for job, demand in self._params[c.JOBS].items():
             for day, day_dict in calendar_dict.items():
-                day_dict[job] = self._params[c.JOBS][job]
+                day_dict[job] = demand
 
         # Alter the staff demand
+        # TODO
 
         return calendar_dict
 
@@ -45,13 +46,12 @@ class InputMonthly(Input):
         ''' This method returns the staff data to calculate the roster.
         :param year: int giving a year within 1700 and 2100
         :param month: int giving a month within 1 (Jan) and 12 (Dec)
-        :return staff_dict: dict with staff members and their specs'''
+        :return dict with staff members and their specs'''
 
         staff_dict = {"Marlin": {c.WORKDAYS: 4,
                                  c.JOBS: ["Saisonnier m"],
                                  c.PRIO_JOB: "Saisonnier m",
-                                 c.WISHES: [
-                                     {datetime.date(2019, 1, 2): c.PRIO3}]}}
+                                 c.WISHES: {datetime.date(2019, 1, 2): c.PRIO3}}}
         return staff_dict
 
     def __get_calendar_dict(self, year, month, curtail=True):
