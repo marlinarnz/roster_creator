@@ -18,5 +18,7 @@
         "off_prio1": 30,
         "off_prio2": 20,
         "off_prio3": 10
-    }
+    },
+    "output_path": "",
+    "excel_file_extension": ".xlsx"
 }
