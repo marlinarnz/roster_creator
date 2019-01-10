@@ -4,6 +4,7 @@ import calendar
 import json
 
 from app.constants import Constants as c
+from app.dataclasses import Staff
 
 
 class Input:
@@ -42,17 +43,18 @@ class InputMonthly(Input):
 
         return calendar_dict
 
-    def get_staff_dict(self, year, month):
+    def get_staff_list(self, year, month):
         ''' This method returns the staff data to calculate the roster.
         :param year: int giving a year within 1700 and 2100
         :param month: int giving a month within 1 (Jan) and 12 (Dec)
-        :return dict with staff members and their specs'''
+        :return list with staff object instances'''
 
-        staff_dict = {"Marlin": {c.WORKDAYS: 4,
-                                 c.JOBS: ["Saisonnier m"],
-                                 c.PRIO_JOB: "Saisonnier m",
-                                 c.WISHES: {datetime.date(2019, 1, 2): c.PRIO3}}}
-        return staff_dict
+        staff_list = [Staff(name="Marlin", workdays=4, 
+                            jobs=["Saisonnier m"],
+                            wishes={datetime.date(2019, 1, 2): c.PRIO3},
+                            prio_job="Saisonnier m")
+                     ]
+        return staff_list
 
     def __get_calendar_dict(self, year, month, curtail=True):
         ''' This method uses the calendar package to iterate over
