@@ -105,12 +105,13 @@ class SolverMIP(Solver):
         '''
         from PySCIPOpt import Model
         model = Model()
-        off = [[model.addVar(name=name + "_" + str(day), vtype="B", obj=0)
-                 for day, v in roster_frame.items()]
-                for name, val in staff_list.items()]
+        off = [[model.addVar(name=staff.name + "_" + str(day),
+                             vtype="B", obj=0)
+                 for day, val in roster_frame.items()]
+                for staff in staff_list]
         ut_wishes = [[self._params[c.UT][c.PRIO_MAP[v[c.WISHES][day]]]
-                      for name, v in staff_list.items()
-                      if day in v[c.WISHES].keys() else 0]
+                      for staff in staff_list
+                      if day in staff.wishes.keys() else 0]
                      for day, val in roster_frame.items()]
         model.setObjective()
 
