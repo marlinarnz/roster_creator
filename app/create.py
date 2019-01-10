@@ -59,7 +59,7 @@ class CreatorUtility(Creator):
             year, month = self.__choose_timeframe(settings)
             # Get the input data
             self._roster = self._in.get_demand_dict(year, month, True)
-            self._staff = self._in.get_staff_dict(year, month)
+            self._staff = self._in.get_staff_list(year, month)
             # Run the solver
             result = self._solver.run(self._roster, self._staff)
             # Call the output
@@ -88,28 +88,28 @@ class Solver:
         raise NotImplementedError
 
 
-class SolverSimplex(Solver):
-    ''' A solver using the Nelder-Meat Simplex to find a solution for
-    linear programmes'''
+class SolverMIP(Solver):
+    ''' A solver based on non-linear utility maximization. A mixed integer
+    problem (MIP) is constructed.'''
 
-    def run(self, roster_frame, staff_dict):
-        ''' Uses the scipy linprog function with Nelder-Meat Simplex algorithm
-        for calculation of the optimal solution
+    def run(self, roster_frame, staff_list):
+        '''
         https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.linprog.html#scipy.optimize.linprog
         https://stackoverflow.com/questions/26305704/python-mixed-integer-linear-programming
         solver packages
         https://github.com/SCIP-Interfaces/PySCIPOpt
+        https://github.com/SCIP-Interfaces/PySCIPOpt/blob/master/examples/finished/sudoku.py
         http://cvxopt.org/documentation/index.html
         http://www.mipcl-cpp.appspot.com/static/docs/mipcl-py/html/index.html
         https://www.gnu.org/software/glpk/
         '''
         from PySCIPOpt import Model
         model = Model()
-        days = [[model.addVar(name + "_" + str(day), vtype="INTEGER")
+        off = [[model.addVar(name=name + "_" + str(day), vtype="B", obj=0)
                  for day, v in roster_frame.items()]
-                for name, val in staff_dict.items()]
+                for name, val in staff_list.items()]
         ut_wishes = [[self._params[c.UT][c.PRIO_MAP[v[c.WISHES][day]]]
-                      for name, v in staff_dict.items()
+                      for name, v in staff_list.items()
                       if day in v[c.WISHES].keys() else 0]
                      for day, val in roster_frame.items()]
         model.setObjective()
