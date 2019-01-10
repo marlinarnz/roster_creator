@@ -23,7 +23,7 @@ class Constants:
     PRIO1 = "day off priority 1"
     PRIO2 = "day off priority 2"
     PRIO3 = "day off priority 3"
-    # Mapping of Prios and utilities
+    # Mapping of day-off priorities and utilities
     PRIO_MAP = {PRIO1: UT_OFF_PRIO1,
                 PRIO2: UT_OFF_PRIO2,
                 PRIO3: UT_OFF_PRIO3}
@@ -51,3 +51,8 @@ class Errors:
     WRONG_SOLVER = "An instance of the Solver class is needed for "\
         "instanciation of the creator"
     WRONG_SETTINGS = "The settings are invalid"
+    WRONG_STAFF_NAME = "The name of the staff is invalid"
+    WRONG_STAFF_WORKDAYS = "The number of workdays for the staff is invalid"
+    WRONG_STAFF_JOBS = "The list of jobs for the staff is invalid"
+    WRONG_STAFF_WISHES = "The day-off wishes of the staff are invalid"
+    WRONG_STAFF_PRIO_JOB = "The prioritized job for the staff is invalid"
