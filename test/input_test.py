@@ -32,8 +32,22 @@ class InputMonthlyTest(unittest.TestCase):
         with self.assertRaises(ValueError):
             self.testclass.get_demand_dict(self.year, self.month, "hello")
 
-    def testGetDemandDict_correct_success(self):
+    def testGetDemandDict_curtail_success(self):
         demand = self.testclass.get_demand_dict(self.year, self.month)
+        self.assertIsInstance(demand, dict)
+        if self.month == 1:
+            self.assertTrue(len(demand) == 31)
+        else:
+            self.assertTrue(len(demand) <= 31 and len(demand) >= 28)
+        for day, day_dict in demand.items():
+            self.assertIsInstance(day, datetime.date)
+            self.assertIsInstance(day_dict[c.WEEKDAY], int)
+            for key, val in day_dict.items():
+                self.assertIsInstance(key, str)
+                self.assertIsInstance(val, int)
+
+    def testGetDemandDict_noCurtail_success(self):
+        demand = self.testclass.get_demand_dict(self.year, self.month, False)
         self.assertIsInstance(demand, dict)
         for day, day_dict in demand.items():
             self.assertIsInstance(day, datetime.date)
@@ -41,6 +55,8 @@ class InputMonthlyTest(unittest.TestCase):
             for key, val in day_dict.items():
                 self.assertIsInstance(key, str)
                 self.assertIsInstance(val, int)
+        self.assertTrue(demand[0][c.WEEKDAY] == 0)
+        self.assertTrue(demand[-1][c.WEEKDAY] == 6)
 
     def testGetStaffDict_wrongYear_exception(self):
         with self.assertRaises(ValueError):
