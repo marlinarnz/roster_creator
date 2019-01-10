@@ -1,4 +1,8 @@
+import datetime
+
 from app.constants import Errors as e
+from app.constants import Constants as c
+
 
 class Staff:
     ''' Object representing a staff member with roles, wishes and other specs'''
@@ -18,11 +22,11 @@ class Staff:
             self.workdays = workdays
         else:
             raise ValueError(e.WRONG_STAFF_WORKDAYS)
-        if isinstance(jobs, list):
+        if self.__check_jobs(jobs):
             self.jobs = jobs
         else:
             raise ValueError(e.WRONG_STAFF_JOBS)
-        if isinstance(wishes, int):
+        if self.__check_wishes(wishes):
             self.wishes = wishes
         else:
             raise ValueError(e.WRONG_STAFF_WISHES)
@@ -31,3 +35,19 @@ class Staff:
                 self.prio_job = prio_job
             else:
                 raise ValueError(e.WRONG_STAFF_PRIO_JOB)
+
+    def __check_jobs(self, jobs):
+        if isinstance(jobs, list):
+            for job in jobs:
+                if not isinstance(job, str):
+                    return False
+            return True
+        return False
+
+    def __check_wishes(self, wishes):
+        if isinstance(wishes, dict):
+            for key, val in wishes.items():
+                if not isinstance(key, datetime.date) or val not in [c.PRIO1, c.PRIO2, c.PRIO3]:
+                    return False
+            return True
+        return False
